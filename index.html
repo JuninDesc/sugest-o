@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Sugestões - Protegido</title>
+    <title>Registro de Sugestões - Firebase</title>
     <style>
         /* CSS para estilização */
         body {
@@ -84,6 +84,11 @@
             background-color: #c53030; /* Vermelho mais escuro */
         }
 
+        button:disabled {
+            background-color: #4a5568;
+            cursor: not-allowed;
+        }
+
         .action-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -162,6 +167,19 @@
             border-radius: 15px;
             font-size: 14px;
             font-weight: bold;
+        }
+
+        .status-indicator {
+            background-color: #38a169;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-indicator.offline {
+            background-color: #e53e3e;
         }
 
         .filtro-container {
@@ -259,6 +277,13 @@
             font-style: italic;
         }
 
+        .loading-state {
+            text-align: center;
+            color: #4299e1;
+            padding: 40px;
+            font-style: italic;
+        }
+
         .export-info {
             background-color: #1a202c;
             border: 1px solid #38a169;
@@ -276,6 +301,16 @@
             padding: 15px;
             margin-top: 10px;
             color: #f6ad55;
+            font-size: 14px;
+        }
+
+        .firebase-info {
+            background-color: #1a202c;
+            border: 1px solid #4299e1;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 10px;
+            color: #63b3ed;
             font-size: 14px;
         }
 
@@ -334,7 +369,7 @@
 <body>
 
     <div class="container">
-        <h1>Registro Rápido de Sugestões Suporte</h1>
+        <h1>Registro Rápido de Sugestões</h1>
         
         <form id="suggestionForm">
             <div class="form-group">
@@ -357,11 +392,11 @@
             </div>
 
             <div class="form-group">
-                <label for="nome">Seu primeiro nome:</label>
-                <input type="text" id="nome" name="nome" required placeholder="Digite o nome do aluno">
+                <label for="nome">Nome do aluno:</label>
+                <input type="text" id="nome" name="nome" required placeholder="Digite seu primeiro nome">
             </div>
             
-            <button type="submit">Registrar Sugestão</button>
+            <button type="submit" id="submitButton">Registrar Sugestão</button>
             
             <div class="action-buttons">
                 <button type="button" class="clear-button protected-button" onclick="limparTodosRegistros()">Limpar Todos os Registros</button>
@@ -374,9 +409,8 @@
         </div>
 
         <div class="security-info">
-            <strong>Segurança:</strong> As ações de "Limpar Todos os Registros" e "Exportar para Excel" são protegidas por senha para evitar uso acidental. Apenas usuários autorizados podem executar essas operações.
+            <strong>🔒 Segurança:</strong> As ações de "Limpar Todos os Registros" e "Exportar para Excel" são protegidas por senha para evitar uso acidental. Apenas usuários autorizados podem executar essas operações.
         </div>
-
         <div id="registros">
             <div class="registros-header">
                 <h2>Sugestões Registradas</h2>
@@ -384,7 +418,6 @@
                     <div class="filtro-container">
                         <label for="filtroPlataforma">Filtrar por:</label>
                         <select id="filtroPlataforma" onchange="aplicarFiltro()">
-                            <option value="">Todas as plataformas</option>
                             <option value="">Selecione uma plataforma</option>
                             <option value="GCO Web">GCO Web</option>
                             <option value="GCO App">GCO App</option>
@@ -395,6 +428,7 @@
                             <option value="Outro">Outro</option>
                         </select>
                     </div>
+                    <span class="status-indicator" id="statusIndicator">🔄 Conectando...</span>
                     <span class="contador" id="contador">0 registros</span>
                 </div>
             </div>
@@ -404,16 +438,19 @@
             </div>
             
             <div id="lista-registros">
-                <!-- As sugestões registradas aparecerão aqui -->
+                <div class="loading-state">
+                    🔄 Carregando sugestões do Firebase...
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2025 - Ferramenta de Sugestões Interna equipe suporte Gran | Dados salvos automaticamente | Protegido por senha</p>
+        <p>&copy; 2025 - Ferramenta de Sugestões Interna | Dados salvos no Firebase | Protegido por senha</p>
     </footer>
 
-    <script type="text/javascript" src="index.js"></script>
+    <!-- Firebase SDKs -->
+    <script type="module" src="fron.js"></script>
 
 </body>
 </html>
