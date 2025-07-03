@@ -120,7 +120,7 @@
             metaDiv.appendChild(dataSpan);
             card.appendChild(textoP);
             card.appendChild(metaDiv);
-            card.appendChild(deleteButton);
+            /* card.appendChild(deleteButton); */
 
             return card;
         }
