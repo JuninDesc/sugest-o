@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte - Registro de Sugestões</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro Rápido de Sugestões</h1>
+        <form id="suggestionForm">
+            <div class="form-group">
+                <label for="sugestao">Sugestão / Feedback:</label>
+                <textarea id="sugestao" name="sugestao" rows="4" required placeholder="Digite sua sugestão ou feedback aqui..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="plataforma">Plataforma:</label>
+                <select id="plataforma" name="plataforma" required>
+                    <option value="">Selecione uma plataforma</option>
+                    <option value="GCO Web">GCO Web</option>
+                    <option value="GCO App">GCO App</option>
+                    <option value="GQ Web">GQ Web</option>
+                    <option value="GQ App">GQ App</option>
+                    <option value="Gerenciador">Gerenciador</option>
+                    <option value="Audiobook">Audiobooks</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="nome">Primeiro nome do aluno:</label>
+                 <input type="text" id="nome" name="nome" required placeholder="Digite o nome do aluno">
+                <small id="erro-nome" style="color: red; display: none;">Não insira um e-mail aqui!</small>
+                <small id="erro-nome" style="color: red; display: none;">Não insira um e-mail aqui!</small>         
+            </div>
+            
+            <button type="submit" id="submitButton">Registrar Sugestão</button>
+            
+            <div class="action-buttons">
+                <button type="button" class="clear-button protected-button" onclick="limparTodosRegistros()">Limpar Todos os Registros</button>
+                <button type="button" class="export-button protected-button" onclick="exportarParaExcel()">Exportar para Excel</button>
+            </div>
+        </form>
+
+        <div class="export-info">
+            <strong>Dica:</strong> Use o botão "Exportar para Excel" para baixar todas as sugestões em formato CSV, que pode ser aberto no Excel, Google Sheets ou LibreOffice Calc.
+        </div>
+
+        <div class="security-info">
+            <strong>Segurança:</strong> As ações de "Limpar Todos os Registros" e "Exportar para Excel" são protegidas por senha para evitar uso acidental. Apenas usuários autorizados podem executar essas operações.
+        </div>
+
+        <div id="registros">
+            <div class="registros-header">
+                <h2>Sugestões Registradas</h2>
+                <div class="header-controls">
+                    <div class="filtro-container">
+                        <label for="filtroPlataforma">Filtrar por:</label>
+                        <select id="filtroPlataforma" onchange="aplicarFiltro()">
+                            <option value="">Todas as plataformas</option>
+                            <option value="GCO Web">GCO Web</option>
+                            <option value="GCO App">GCO App</option>
+                            <option value="GQ Web">GQ Web</option>
+                            <option value="GQ App">GQ App</option>
+                            <option value="Gerenciador">Gerenciador</option>
+                            <option value="Audiobook">Audiobook</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <span style="display: none;" class="status-indicator" id="statusIndicator">🔄 Conectando...</span>
+                    <span class="contador" id="contador">0 registros</span>
+                </div>
+            </div>
+            
+            <div class="filtro-info" id="filtroInfo">
+                <strong>🔍 Filtro ativo:</strong> Mostrando apenas sugestões da plataforma <span id="plataformaFiltrada"></span>
+            </div>
+            
+            <div id="lista-registros">
+                <div class="loading-state">
+                    🔄 Carregando sugestões...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 - Ferramenta de Sugestões Interna | Suporte</p>
+    </footer>
+
+<script type="module" src="/script/fron.js"></script>
+
+</body>
+</html>
+
