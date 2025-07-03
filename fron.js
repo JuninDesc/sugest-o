@@ -3,7 +3,7 @@
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-        // Your web app's Firebase configuration
+
         const firebaseConfig = {
             apiKey: "AIzaSyBMq2mLGtmzdn_7H3C6Qm_kVztDlv3E0HI",
             authDomain: "sugestoesalunos.firebaseapp.com",
@@ -111,7 +111,7 @@
             // Botão de deletar
             const deleteButton = document.createElement('button');
             deleteButton.classList.add('delete-button');
-            deleteButton.innerHTML = '×';
+            deleteButton.innerHTML = '×'; 
             deleteButton.title = 'Remover esta sugestão';
             deleteButton.onclick = () => removerSugestao(sugestao.id);
 
@@ -120,7 +120,7 @@
             metaDiv.appendChild(dataSpan);
             card.appendChild(textoP);
             card.appendChild(metaDiv);
-            card.appendChild(deleteButton);
+           /* card.appendChild(deleteButton);  */
 
             return card;
         }
@@ -413,6 +413,24 @@
             document.getElementById('suggestionForm').reset();
             document.getElementById('sugestao').focus();
         });
+
+        // Validação do campo de nome para evitar e-mails
+
+        const campoNome = document.getElementById('nome');
+        const erro = document.getElementById('erro-nome');
+
+        campoNome.addEventListener('input', () => {
+        const valor = campoNome.value;
+        const regexEmail = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+        if (regexEmail.test(valor)) {
+        erro.style.display = 'block'; // Mostra a mensagem de erro
+        campoNome.setCustomValidity('Digite apenas o nome, não um e-mail');
+        } else {
+        erro.style.display = 'none'; // Oculta o erro
+        campoNome.setCustomValidity('');
+        }
+    });
 
         // Permitir envio com Ctrl+Enter no textarea
         document.getElementById('sugestao').addEventListener('keydown', function(event) {
